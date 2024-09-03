@@ -13,7 +13,7 @@
 \usepackage{graphicx}
 \usepackage[colorlinks=true, allcolors=blue]{hyperref}
 
-\title{Title: Preventive Maintenance of Industrial Rotational Machinery through Machine Learning and Audio Analysis}
+\title{Title: Preventive Maintenance of Industrial Rotational Machinery through Machine Learning and Acoustic Monitoring}
 \author{You}
 
 \begin{document}
@@ -28,6 +28,14 @@ Your abstract.
 
 Texas Instruments’ SK-AM62A-LP
 
+%%%---FIGURE: Architecture
+\begin{figure}
+\centering
+\includegraphics[width=0.9\linewidth]{figs/fig-arch1.png}
+\caption{\label{fig:arch1}Proposed architecture of the fault detection using audio analytics and machine learning.}
+\end{figure}
+
+
 %%%--- EXPLANATION OF IDEA
 \section{Explanation of the Idea}
 % Include a block diagram, overview of implementation  (Minimum font size: 10pt, Times New Roman font. Maximum two pages including tables, diagram, references (if any) )
@@ -36,22 +44,45 @@ High-performance rotational machinery is crucial to numerous industrial fields s
 A recent study of more than 400 malfunctioning of just one type of pumps, multistage centrifugal pumps (MCPs), found that the industry suffered more than 6000 hours of maintenance-related downtime due to the absence of precise and intelligent fault diagnosis (FD), incurring a cost in the range of 50 million USD \cite{rane2021re}.
 The vast array of uses for rotational machinery implies that malfunctions can lead to major repercussions, such as energy waste, industrial process interruptions, financial losses, costly repairs, and jeopardized employee safety. 
 
-To maintain dependable operation, early fault detection is important and should minimize maintenance and repair expenses. Consistent supervision can be achieved using affordable and reliable signal processing and artificial intelligence (AI) techniques \cite{sunal2022review}. AI techniques for fault detection involve preprocessing signals and features to identify and classify faults \cite{saeed2021fault, jiang2019bearing}.
+To maintain dependable operation, early fault detection is important and should minimize maintenance and repair expenses. Consistent supervision can be achieved using affordable and reliable signal processing and artificial intelligence (AI) techniques \cite{sunal2022review}. Artificial intelligence techniques for fault detection involve preprocessing signals and features to identify and classify faults \cite{saeed2021fault, jiang2019bearing}.
 
+%%%---FIGURE: Architecture
 \begin{figure}
 \centering
 \includegraphics[width=0.9\linewidth]{figs/fig-arch1.png}
 \caption{\label{fig:arch1}Proposed architecture of the fault detection using audio analytics and machine learning.}
 \end{figure}
 
+The architecture of the fault detection system is shown in Figure~\ref{fig:arch1}. This design closely resembles the detection of voice keywords, commonly known as keyword spotting (KWS), a technique that has been used effectively for many years \cite{chong20220}.
+In this architecture, the raw data from a digital microphone are passed through digital signal processing steps to extract some spectral features of the audio signal known as mel-frequency cepstral coefficients (MFCC). These coeeficients are used to train a neural network such as Convolutional neural network (CNN) or Recurrent neural network (RNN). 
 
+A digital microphone captures live audio data via an $I^2S$ serial interface. The data is first high-pass filtered typically realized by $y[n] = x[n] - \alpha~x[n-1]$ where, $\alpha$ typically ranges from 0.9 to 1 \cite{han2006efficient}.
+Next, a window function (e.g., Hanning) is applied to the data to minimize spectral leakage during the fast Fourier transform (FFT) process. The linear spectrum is transformed into a Mel scale for better computing efficiency using the following equation $Mel(f) = 2595\cdot \log(1 + f/700)$ \cite{han2006efficient}.
+Subsequently, the logarithm of the Mel frequency power is computed followed by the discrete cosine transform (DCT) to generate the MFCC coefficients. These coefficients are then fed into a \textit{trained} classifier (CNN/RNN) to detect and report faults.
 
 
 \section{Example of its Application}
 % application (Describe an example consisting of potential application/Future application. This will enable usage model towards its market acceptance) (maximum 200 words)
+Rotating equipment like motors, pumps, fans and compressors are prime candidates for acoustic monitoring \cite{judith2017}. Acoustic sensors identify irregularities in the noises produced by rotating parts, facilitating the early detection of faults.
+
+Acoustic sensors can be used to control valves, pipelines, and other fluid systems \cite{judith2017}. Leaks, obstructions, and cavitation in valves emit distinct acoustic signals that can be identified. Acoustic monitoring is capable of detecting problems such as valve seat leaks, stuck valves, and erosion/corrosion in piping before they develop into major issues.
+
+Sound-based monitoring can also be used to assess the condition of electrical systems such as transformers, switchgear, and motors \cite{avinton2023}. Acoustic emissions generated by partial discharges, arcing, and the corona in an electrical apparatus can be detected using sound sensors. This facilitates the early detection of insulation wear, loose connections, and various electrical problems.
 
 \section{Benefits and Value Addition}
 % (Explain the key benefits of your idea/implementation. You should describe the key value addition of your idea as this will explain why your idea has value in the presence of other participants. It will show uniqueness/Unique selling point/key differentiator) (maximum 200 words)
+
+Acoustic monitoring offers several notable advantages over conventional preventive maintenance methodologies, which include vibration analysis, parameter monitoring, and invasive techniques:
+\begin{itemize}
+    \item Ability to \textit{detect certain faults earlier} than traditional methods.
+    \item \textit{Cost-effectiveness}, as acoustic sensors are less expensive than, e.g., vibration sensors.
+    \item Implementing the system is straightforward because it operates at low frequencies, leading to \textit{inexpensive monitoring solutions}.
+    \item \textit{Versatility} to monitor a wide range of equipment and systems.
+    \item \textit{Non-invasive} monitoring as sensors can be placed remotely without contact with the machine.
+\end{itemize}
+
+In brief, acoustic surveillance serves as a robust method for predictive maintenance, leveraging AI and machine learning to scrutinize machine sounds and identify irregularities at an early stage. It provides an efficient and affordable means to supervise the condition of industrial equipment and avert failures.
+
 
 \section{Team Members}
 % •	List your team members’ names, program, department, year of study and contact emails here
