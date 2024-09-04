@@ -67,6 +67,13 @@ A digital microphone captures live audio data via an $I^2S$ serial interface. Th
 Next, a window function (e.g., Hanning) is applied to the data to minimize spectral leakage during the fast Fourier transform (FFT) process. The linear spectrum is transformed into a Mel scale for better computing efficiency using the following equation $Mel(f) = 2595\cdot \log(1 + f/700)$ \cite{han2006efficient}.
 Subsequently, the logarithm of the Mel frequency power is computed followed by the discrete cosine transform (DCT) to generate the MFCC coefficients. These coefficients are then fed into a \textit{trained} classifier (CNN/RNN) to detect and report faults.
 
+%%%---FIGURE: TI-EVM-Setup
+\begin{figure}[htb]
+\centering
+\includegraphics[width=1.0\linewidth]{figs/TI.png}
+\caption{\label{fig:arch1}Proposed architecture of the fault detection using audio analytics and machine learning.}
+\end{figure}
+
 
 \section{Example of its Application}
 % application (Describe an example consisting of potential application/Future application. This will enable usage model towards its market acceptance) (maximum 200 words)
